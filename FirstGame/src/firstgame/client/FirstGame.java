@@ -4,11 +4,8 @@ import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.canvas.dom.client.CssColor;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.dom.client.ImageElement;
-import com.google.gwt.event.dom.client.LoadEvent;
-import com.google.gwt.event.dom.client.LoadHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -23,7 +20,7 @@ public class FirstGame implements EntryPoint {
 
 	private Context2d context;
 
-	private Image image;
+	private Floor floor;
 
 	public void onModuleLoad() {
 		canvas = Canvas.createIfSupported();
@@ -48,16 +45,14 @@ public class FirstGame implements EntryPoint {
 	}
 
 	private void loadImage() {
-		image = new Image("images/block_brown.png");
-		image.addLoadHandler(new LoadHandler() {
+		floor = new Floor(Constant.FLOOR.BROWN, 5);
+		Timer timer = new Timer() {
 			
 			@Override
-			public void onLoad(LoadEvent event) {
-				ImageElement imageElement = (ImageElement) image.getElement().cast();
-				context.save();
-				context.drawImage(imageElement, 10, 10);
-				context.restore();
+			public void run() {
+				floor.draw(context);
 			}
-		});
+		};
+		timer.scheduleRepeating(1000);
 	}
 }
