@@ -1,4 +1,4 @@
-package firstgame.client;
+package firstgame.client.base;
 
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.dom.client.ImageElement;
