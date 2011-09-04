@@ -72,7 +72,7 @@ public class Floor {
 		context.restore();
 	}
 	
-	public void move(int deltaX, int deltaY) {
+	public void move(float deltaX, float deltaY) {
 		pos.x += deltaX;
 		pos.y += deltaY;
 	}
