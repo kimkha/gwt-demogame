@@ -9,20 +9,25 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import firstgame.client.base.Character;
+import firstgame.client.base.Floor;
+import firstgame.client.base.Vector;
 import firstgame.shared.Constant;
 
 public class FirstGame implements EntryPoint {
 	static final String upgradeMessage = "Your browser does not support " +
 			"the HTML5 Canvas. Please upgrade your browser to view this game.";
 	
-	static final int height = 400;
-	static final int width = 400;
+	static final int height = 430;
+	static final int width = 450;
 	
 	private Canvas canvas;
 
 	private Context2d context;
 
 	private Floor floor;
+
+	private Character character;
 
 	public void onModuleLoad() {
 		canvas = Canvas.createIfSupported();
@@ -40,18 +45,21 @@ public class FirstGame implements EntryPoint {
 		RootPanel.get().add(canvas);
 		
 		context = canvas.getContext2d();
-		context.setFillStyle(CssColor.make(230, 230, 255));
+		context.setFillStyle(CssColor.make(0, 0, 0));
 		context.fillRect(0, 0, width, height);
 		
-		loadImage();
+		initGame();
 	}
 
-	private void loadImage() {
-		floor = new Floor(Constant.FLOOR.BROWN, 8);
+	private void initGame() {
+		floor = new Floor(Constant.FLOOR.GRASS, 8);
+		character = new Character(new Vector(20, 10));
+		
 		Timer timer = new Timer() {
 			@Override
 			public void run() {
 				floor.draw(context);
+				character.draw(context);
 			}
 		};
 		timer.scheduleRepeating(40);

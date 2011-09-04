@@ -1,4 +1,4 @@
-package firstgame.client;
+package firstgame.client.base;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
@@ -62,7 +62,7 @@ public class Floor {
 			}
 		}
 		
-		context.drawImage(backContext.getCanvas(), 0, 0, 400, 400);
+		context.drawImage(backContext.getCanvas(), 25, 25, 400, 400);
 	}
 	
 }

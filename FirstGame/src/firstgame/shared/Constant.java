@@ -14,4 +14,13 @@ public class Constant {
 		public static final int WATER = 8;
 		public static final int WOOD = 9;
 	}
+	
+	public static class CHARACTER {
+		public static final int DEFAULT = 0;
+		public static final int BOY = 0;
+		public static final int CAT_GIRL = 1;
+		public static final int HORN_GIRL = 2;
+		public static final int PINK_GIRL = 3;
+		public static final int PRINCESS = 4;
+	}
 }

@@ -1,4 +1,4 @@
-package firstgame.client;
+package firstgame.client.base;
 
 public class Vector {
 	public float x;

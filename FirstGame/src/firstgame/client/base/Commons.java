@@ -1,4 +1,4 @@
-package firstgame.client;
+package firstgame.client.base;
 
 import com.google.gwt.user.client.ui.Image;
 
@@ -31,4 +31,22 @@ public class Commons {
 		
 		return new Image("images/block_brown.png");
 	}
+
+	public static Image getCharacterImage(int type) {
+		switch (type) {
+		case Constant.CHARACTER.BOY:
+			return new Image("images/character_boy.png");
+		case Constant.CHARACTER.CAT_GIRL:
+			return new Image("images/character_cat_girl.png");
+		case Constant.CHARACTER.HORN_GIRL:
+			return new Image("images/character_horn_girl.png");
+		case Constant.CHARACTER.PINK_GIRL:
+			return new Image("images/character_pink_girl.png");
+		case Constant.CHARACTER.PRINCESS:
+			return new Image("images/character_princess_girl.png");
+		}
+		
+		return new Image("images/character_boy.png");
+	}
+	
 }
