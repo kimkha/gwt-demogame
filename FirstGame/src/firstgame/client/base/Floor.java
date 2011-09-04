@@ -17,6 +17,8 @@ public class Floor {
 	private FloorCell[][] group;
 	private boolean imageLoaded = false;
 	private Context2d backContext;
+	private boolean isFinish = false;
+	private Vector pos = new Vector(0, 0);
 
 	public Floor(int type, int size) {
 		this.type = type;
@@ -56,13 +58,23 @@ public class Floor {
 			return;
 		}
 		
-		for (int i=0; i<size; i++) {
-			for (int j=0; j<size; j++) {
-				group[i][j].draw(backContext);
+		if (!isFinish) {
+			for (int i=0; i<size; i++) {
+				for (int j=0; j<size; j++) {
+					group[i][j].draw(backContext);
+				}
 			}
+			isFinish = true;
 		}
 		
-		context.drawImage(backContext.getCanvas(), 25, 25, 400, 400);
+		context.save();
+		context.drawImage(backContext.getCanvas(), pos.x, pos.y, 800, 800);
+		context.restore();
+	}
+	
+	public void move(int deltaX, int deltaY) {
+		pos.x += deltaX;
+		pos.y += deltaY;
 	}
 	
 }
