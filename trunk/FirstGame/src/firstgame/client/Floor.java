@@ -1,5 +1,6 @@
 package firstgame.client;
 
+import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.LoadEvent;
@@ -7,12 +8,15 @@ import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import firstgame.shared.Constant;
+
 public class Floor {
 	private int type = Constant.FLOOR.DEFAULT;
 	private int size;
 	private Image image;
 	private FloorCell[][] group;
 	private boolean imageLoaded = false;
+	private Context2d backContext;
 
 	public Floor(int type, int size) {
 		this.type = type;
@@ -23,16 +27,7 @@ public class Floor {
 	}
 
 	private void init() {
-		String img = "";
-		switch (type) {
-		case Constant.FLOOR.BROWN:
-			img = "block_brown.png";
-			break;
-		default:
-			img = "block_brown.png";
-		}
-
-		image = new Image("images/" + img);
+		image = Commons.getBlockImage(type);
 		image.addLoadHandler(new LoadHandler() {
 			@Override
 			public void onLoad(LoadEvent event) {
@@ -49,6 +44,11 @@ public class Floor {
 		});
 		image.setVisible(false);
 		RootPanel.get().add(image);
+		
+		Canvas backCanvas = Canvas.createIfSupported();
+		backCanvas.setCoordinateSpaceWidth(size * 100);
+		backCanvas.setCoordinateSpaceHeight((size+1) * 85);
+		backContext = backCanvas.getContext2d();
 	}
 	
 	public void draw(Context2d context) {
@@ -58,9 +58,11 @@ public class Floor {
 		
 		for (int i=0; i<size; i++) {
 			for (int j=0; j<size; j++) {
-				group[i][j].draw(context);
+				group[i][j].draw(backContext);
 			}
 		}
+		
+		context.drawImage(backContext.getCanvas(), 0, 0, 400, 400);
 	}
 	
 }
