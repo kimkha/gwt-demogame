@@ -9,6 +9,8 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import firstgame.shared.Constant;
+
 public class FirstGame implements EntryPoint {
 	static final String upgradeMessage = "Your browser does not support " +
 			"the HTML5 Canvas. Please upgrade your browser to view this game.";
@@ -34,7 +36,7 @@ public class FirstGame implements EntryPoint {
 		canvas.setCoordinateSpaceWidth(width);
 		canvas.setCoordinateSpaceHeight(height);
 		
-		RootPanel.get().add(new HTML("Hello to my first game!"));
+		RootPanel.get().add(new HTML("Hello to my first game!<br /><br />"));
 		RootPanel.get().add(canvas);
 		
 		context = canvas.getContext2d();
@@ -45,14 +47,13 @@ public class FirstGame implements EntryPoint {
 	}
 
 	private void loadImage() {
-		floor = new Floor(Constant.FLOOR.BROWN, 5);
+		floor = new Floor(Constant.FLOOR.BROWN, 8);
 		Timer timer = new Timer() {
-			
 			@Override
 			public void run() {
 				floor.draw(context);
 			}
 		};
-		timer.scheduleRepeating(1000);
+		timer.scheduleRepeating(40);
 	}
 }
