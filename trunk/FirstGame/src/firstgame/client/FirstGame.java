@@ -4,6 +4,8 @@ import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.canvas.dom.client.CssColor;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
@@ -45,23 +47,59 @@ public class FirstGame implements EntryPoint {
 		RootPanel.get().add(canvas);
 		
 		context = canvas.getContext2d();
-		context.setFillStyle(CssColor.make(0, 0, 0));
-		context.fillRect(0, 0, width, height);
-		
+
+		initHandlers();
 		initGame();
 	}
 
 	private void initGame() {
-		floor = new Floor(Constant.FLOOR.GRASS, 8);
-		character = new Character(new Vector(20, 10));
+		floor = new Floor(Constant.FLOOR.GRASS, 16);
+		character = new Character(new Vector(width/2-50, height/2-100));
 		
-		Timer timer = new Timer() {
+		final Timer timer = new Timer() {
 			@Override
 			public void run() {
+				context.setFillStyle(CssColor.make(0, 0, 0));
+				context.fillRect(0, 0, width, height);
+				
 				floor.draw(context);
 				character.draw(context);
 			}
 		};
-		timer.scheduleRepeating(40);
+		timer.scheduleRepeating(30);
 	}
+
+	private void initHandlers() {
+		canvas.addKeyDownHandler(new KeyDownHandler() {
+			@Override
+			public void onKeyDown(KeyDownEvent event) {
+				if (event.isUpArrow()) {
+					move(0, 10);
+					event.preventDefault();
+					event.stopPropagation();
+				}
+				if (event.isDownArrow()) {
+					move(0, -10);
+					event.preventDefault();
+					event.stopPropagation();
+				}
+				if (event.isLeftArrow()) {
+					move(10, 0);
+					event.preventDefault();
+					event.stopPropagation();
+				}
+				if (event.isRightArrow()) {
+					move(-10, 0);
+					event.preventDefault();
+					event.stopPropagation();
+				}
+			}
+		});
+		
+	}
+	
+	private void move(int deltaX, int deltaY) {
+		floor.move(deltaX, deltaY);
+	}
+
 }
