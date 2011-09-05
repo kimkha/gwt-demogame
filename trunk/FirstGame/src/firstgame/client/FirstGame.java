@@ -9,7 +9,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -62,7 +61,7 @@ public class FirstGame implements EntryPoint {
 
 	private void initGame() {
 		floor = new Floor(Constant.FLOOR.GRASS, 16);
-		character = new Character(new Vector(width/2-50, height/2-100));
+		character = new Character(Constant.CHARACTER.PINK_GIRL, new Vector(width/2-50, height/2-100));
 		
 		final Timer timer = new Timer() {
 			@Override
@@ -132,9 +131,9 @@ public class FirstGame implements EntryPoint {
 	}
 
 	private void move(int deltaX, int deltaY) {
-		int absX = Math.abs(deltaY);
+		int absX = Math.abs(deltaX);
 		int absY = Math.abs(deltaY);
-		if (absX >= absY && absY >= 0) {
+		if (absX >= absY) {
 			times = absX / baseStep;
 		} else {
 			times = absY / baseStep;
