@@ -127,7 +127,12 @@ public class FirstGame implements EntryPoint {
 	}
 	
 	private void doMove(float deltaX, float deltaY) {
-		floor.move(deltaX, deltaY);
+		boolean isContinue = floor.move(deltaX, deltaY);
+		if (!isContinue) {
+			times = 0;
+			stepX = 0f;
+			stepY = 0f;
+		}
 	}
 
 	private void move(int deltaX, int deltaY) {
