@@ -72,9 +72,20 @@ public class Floor {
 		context.restore();
 	}
 	
-	public void move(float deltaX, float deltaY) {
+	public boolean move(float deltaX, float deltaY) {
+		boolean flag = true;
 		pos.x += deltaX;
 		pos.y += deltaY;
+		
+		if (pos.x < -225) {
+			pos.x = -225;
+			flag = false;
+		}
+		if (pos.y < -215) {
+			pos.y = -215;
+			flag = false;
+		}
+		return flag;
 	}
 	
 }
