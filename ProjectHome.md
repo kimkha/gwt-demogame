@@ -1,0 +1,1 @@
+Demo game with Google Web Toolkit, communicate with GWT core fully.
